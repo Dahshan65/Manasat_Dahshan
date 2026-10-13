@@ -16,9 +16,7 @@
   --text: #183326;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -29,9 +27,7 @@ body {
   line-height: 1.8;
 }
 
-button, input {
-  font: inherit;
-}
+button, input { font: inherit; }
 
 header {
   padding: 25px 14px;
@@ -77,9 +73,7 @@ h2 {
   font-size: 17px;
 }
 
-.hidden {
-  display: none !important;
-}
+.hidden { display: none !important; }
 
 .course-grid {
   display: grid;
@@ -90,7 +84,6 @@ h2 {
 .course-card {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
   padding: 22px;
   min-height: 250px;
   text-align: center;
@@ -133,9 +126,7 @@ h2 {
   cursor: pointer;
 }
 
-.btn:hover {
-  opacity: 0.92;
-}
+.btn:hover { opacity: 0.92; }
 
 .btn-gold {
   color: #30250c;
@@ -155,9 +146,7 @@ h2 {
   margin: 16px 0;
 }
 
-.btn-row .btn {
-  flex: 1 1 190px;
-}
+.btn-row .btn { flex: 1 1 190px; }
 
 .lesson-list {
   display: grid;
@@ -178,6 +167,10 @@ h2 {
   text-align: right;
   font-size: 18px;
   cursor: pointer;
+}
+
+.lesson-btn:hover {
+  border-color: var(--green2);
 }
 
 .lesson-btn.active {
@@ -283,9 +276,7 @@ footer {
   border-top: 4px solid var(--gold);
 }
 
-footer p {
-  margin: 5px;
-}
+footer p { margin: 5px; }
 
 footer a {
   color: var(--gold);
@@ -293,22 +284,15 @@ footer a {
 }
 
 @media (max-width: 480px) {
-  body {
-    font-size: 18px;
-  }
+  body { font-size: 18px; }
 
   .container {
     width: calc(100% - 14px);
     margin: 12px auto;
   }
 
-  .panel {
-    padding: 15px;
-  }
-
-  .course-card {
-    padding: 18px;
-  }
+  .panel { padding: 15px; }
+  .course-card { padding: 18px; }
 
   .btn {
     width: 100%;
@@ -316,9 +300,7 @@ footer a {
     font-size: 19px;
   }
 
-  .btn-row {
-    flex-direction: column;
-  }
+  .btn-row { flex-direction: column; }
 }
 </style>
 </head>
@@ -333,7 +315,7 @@ footer a {
 
 <main class="container">
 
-  <!-- تسجيل الدخول -->
+  <!-- شاشة تسجيل الدخول -->
   <section id="loginSection" class="panel login-box">
     <div class="course-icon">📚</div>
     <h2>أهلًا وسهلًا بكم</h2>
@@ -353,7 +335,6 @@ footer a {
     <p id="loginError" class="error" aria-live="polite"></p>
   </section>
 
-  <!-- محتوى التطبيق -->
   <div id="appSection" class="hidden">
 
     <!-- الصفحة الرئيسية -->
@@ -374,9 +355,9 @@ footer a {
 
         <article class="course-card">
           <div class="course-icon">✒️</div>
-          <h3>دورة تحسين الخط العربي</h3>
-          <p>تابع فيديوهات تعليم الخط العربي وتحسين الكتابة.</p>
-          <button class="btn btn-gold" onclick="openPlaylist('calligraphy')">
+          <h3>دورة تحسين الكتابة بخط النسخ</h3>
+          <p>دروس لتحسين الكتابة بخط النسخ ومتابعة الفيديوهات التعليمية.</p>
+          <button class="btn btn-gold" onclick="openCourse('calligraphy')">
             مشاهدة دورة الخط
           </button>
         </article>
@@ -384,8 +365,8 @@ footer a {
         <article class="course-card">
           <div class="course-icon">🧒</div>
           <h3>دورة اللغة العربية للأطفال</h3>
-          <p>دروس لتعلم اللغة العربية بطريقة مناسبة للأطفال.</p>
-          <button class="btn" onclick="openPlaylist('children')">
+          <p>مجموعة فيديوهات لتعلم اللغة العربية خطوة بخطوة.</p>
+          <button class="btn" onclick="openCourse('children')">
             مشاهدة دورة الأطفال
           </button>
         </article>
@@ -419,13 +400,12 @@ footer a {
       </h3>
 
       <p class="subtitle">اختر الدرس من القائمة التالية:</p>
-
       <div id="grammarLessons" class="lesson-list"></div>
     </section>
 
-    <!-- دورات قوائم تشغيل يوتيوب -->
-    <section id="playlistSection" class="panel hidden">
-      <h2 id="playlistHeading">الدورة التعليمية</h2>
+    <!-- دورة الخط العربي ودورة الأطفال -->
+    <section id="videoCourseSection" class="panel hidden">
+      <h2 id="courseHeading">الدورة التعليمية</h2>
 
       <div class="btn-row">
         <button class="btn btn-secondary" onclick="goHome()">
@@ -435,30 +415,36 @@ footer a {
         <a
           id="openYoutube"
           class="btn btn-gold"
-          href="https://www.youtube.com/"
+          href="#"
           target="_blank"
           rel="noopener noreferrer">
-          فتح القائمة على يوتيوب
+          فتح قائمة التشغيل على يوتيوب
         </a>
       </div>
 
       <div class="video-wrap">
         <iframe
-          id="playlistPlayer"
+          id="coursePlayer"
           src="about:blank"
-          title="قائمة تشغيل الدورة"
+          title="فيديو الدورة"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen>
         </iframe>
       </div>
 
-      <p id="playlistDescription" class="subtitle">
-        اختر الفيديو التالي من قائمة التشغيل داخل المشغل.
+      <h3 id="courseVideoTitle" class="video-title">
+        اختر فيديو من القائمة
+      </h3>
+
+      <p id="courseDescription" class="subtitle">
+        اضغط على أحد الفيديوهات لتشغيله.
       </p>
 
+      <div id="courseLessons" class="lesson-list"></div>
+
       <p class="small-note">
-        إذا لم تعمل قائمة التشغيل داخل الصفحة، افتحها مباشرة على يوتيوب.
+        إذا لم يعمل الفيديو داخل الصفحة، استخدم زر فتح يوتيوب.
       </p>
     </section>
 
@@ -504,40 +490,67 @@ footer a {
 </footer>
 
 <script>
-/* ==========================================
-   إعدادات التطبيق
-========================================== */
+/* =====================================
+   الإعدادات
+===================================== */
 
 const SECRET_PASS = "1234";
 
 /*
-  تنبيه:
-  خدمة العداد الخارجية أدناه تحتاج إلى أن تكون
-  واجهتها متاحة ومتوافقة مع الطلب المستخدم.
-  لا يُعرض رقم وهمي عند تعذّر الاتصال.
+  بيانات العداد الخارجي.
+  إذا كانت الخدمة لا تستجيب، سيظهر تنبيه بدل رقم وهمي.
 */
-
 const COUNTER_NAMESPACE = "riwaq-al-fann-al-arabi";
 const COUNTER_ACTION = "view";
 const COUNTER_KEY = "website-visits";
 
-const playlists = {
-  calligraphy: {
-    title: "دورة تحسين الخط العربي",
-    id: "PLV-QBGGWhNX0",
-    url: "https://www.youtube.com/playlist?list=PLV-QBGGWhNX0",
-    description:
-      "دورة تحسين الخط العربي. يمكنك اختيار الفيديو من قائمة التشغيل."
-  },
+/* =====================================
+   قائمة فيديوهات دورة اللغة العربية للأطفال
+   تم حذف الروابط المكررة.
+===================================== */
 
-  children: {
-    title: "دورة اللغة العربية للأطفال",
-    id: "PLRHDDt-bgjQ4",
-    url: "https://www.youtube.com/playlist?list=PLRHDDt-bgjQ4",
-    description:
-      "دورة اللغة العربية للأطفال. يمكنك اختيار الفيديو من قائمة التشغيل."
-  }
-};
+const childrenVideos = [
+  { title: "فيديو الأطفال 1", id: "8BPWIJe6CWk" },
+  { title: "فيديو الأطفال 2", id: "FsQa8_1WQQE" },
+  { title: "فيديو الأطفال 3", id: "DJkTU9VWJwY" },
+  { title: "فيديو الأطفال 4", id: "6JLpBS5eEeI" },
+  { title: "فيديو الأطفال 5", id: "aDNaVvJ0G0U" },
+  { title: "فيديو الأطفال 6", id: "olmUS8u4C2M" },
+  { title: "فيديو الأطفال 7", id: "lrFnGYUeGcE" },
+  { title: "فيديو الأطفال 8", id: "I4teoijJCF8" },
+  { title: "فيديو الأطفال 9", id: "9oMHPo2VQCQ" },
+  { title: "فيديو الأطفال 10", id: "8us2mbHxJJQ" },
+  { title: "فيديو الأطفال 11", id: "Do_lfGHqAt4" },
+  { title: "فيديو الأطفال 12", id: "g74PcNPjGQw" },
+  { title: "فيديو الأطفال 13", id: "FqNyBO1ADaw" },
+  { title: "فيديو الأطفال 14", id: "HViO8n-zmdA" },
+  { title: "فيديو الأطفال 15", id: "ebrVhtAQBOM" },
+  { title: "فيديو الأطفال 16", id: "-QGidEWlb3M" }
+];
+
+/* =====================================
+   قائمة دورة تحسين الكتابة بخط النسخ
+   تم حذف الروابط المكررة.
+===================================== */
+
+const calligraphyVideos = [
+  { title: "درس الخط النسخي 1", id: "19vpZWc3GOg" },
+  { title: "درس الخط النسخي 2", id: "hfx1nwqD7oI" },
+  { title: "درس الخط النسخي 3", id: "uiDRjMCvbFY" },
+  { title: "درس الخط النسخي 4", id: "gBowWq6FFzY" },
+  { title: "درس الخط النسخي 5", id: "UcvfRO46pO4" },
+  { title: "درس الخط النسخي 6", id: "YXBhWqJbojY" },
+  { title: "درس الخط النسخي 7", id: "eSdlhM7Lesw" },
+  { title: "درس الخط النسخي 8", id: "kLOrYsuQS7U" },
+  { title: "درس الخط النسخي 9", id: "pMVCnEWMDIE" },
+  { title: "درس الخط النسخي 10", id: "9P0bE23k0io" },
+  { title: "درس الخط النسخي 11", id: "2oxuGHMWJxA" },
+  { title: "درس الخط النسخي 12", id: "wS9ympf4ocU" }
+];
+
+/* =====================================
+   دروس قواعد اللغة العربية
+===================================== */
 
 const grammarLessons = [
   {
@@ -574,9 +587,9 @@ const grammarLessons = [
   }
 ];
 
-/* ==========================================
+/* =====================================
    تسجيل الدخول
-========================================== */
+===================================== */
 
 const loginSection = document.getElementById("loginSection");
 const appSection = document.getElementById("appSection");
@@ -587,6 +600,7 @@ const loginError = document.getElementById("loginError");
 function showApp() {
   loginSection.classList.add("hidden");
   appSection.classList.remove("hidden");
+
   renderGrammarLessons();
   loadCounter(true);
 }
@@ -597,9 +611,7 @@ loginForm.addEventListener("submit", function(event) {
   if (passwordInput.value === SECRET_PASS) {
     try {
       sessionStorage.setItem("riwaqLoggedIn", "yes");
-    } catch (error) {
-      // يستمر التطبيق في العمل إذا تعذر التخزين.
-    }
+    } catch (error) {}
 
     loginError.textContent = "";
     showApp();
@@ -614,22 +626,20 @@ try {
   if (sessionStorage.getItem("riwaqLoggedIn") === "yes") {
     showApp();
   }
-} catch (error) {
-  // يمكن الدخول يدويًا إذا لم يكن التخزين متاحًا.
-}
+} catch (error) {}
 
-/* ==========================================
+/* =====================================
    التنقل بين الصفحات
-========================================== */
+===================================== */
 
 const homeSection = document.getElementById("homeSection");
 const grammarSection = document.getElementById("grammarSection");
-const playlistSection = document.getElementById("playlistSection");
+const videoCourseSection = document.getElementById("videoCourseSection");
 
 function hideAllPages() {
   homeSection.classList.add("hidden");
   grammarSection.classList.add("hidden");
-  playlistSection.classList.add("hidden");
+  videoCourseSection.classList.add("hidden");
 }
 
 function goHome() {
@@ -644,28 +654,9 @@ function openGrammar() {
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function openPlaylist(type) {
-  const course = playlists[type];
-  if (!course) return;
-
-  hideAllPages();
-  playlistSection.classList.remove("hidden");
-
-  document.getElementById("playlistHeading").textContent = course.title;
-  document.getElementById("playlistDescription").textContent =
-    course.description;
-  document.getElementById("openYoutube").href = course.url;
-
-  document.getElementById("playlistPlayer").src =
-    "https://www.youtube-nocookie.com/embed/videoseries?list=" +
-    encodeURIComponent(course.id);
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-/* ==========================================
-   قائمة دروس قواعد اللغة العربية
-========================================== */
+/* =====================================
+   إنشاء قائمة دروس القواعد
+===================================== */
 
 function renderGrammarLessons() {
   const list = document.getElementById("grammarLessons");
@@ -705,9 +696,106 @@ function renderGrammarLessons() {
   });
 }
 
-/* ==========================================
+/* =====================================
+   عرض دورة الخط أو دورة الأطفال
+===================================== */
+
+function openCourse(type) {
+  let videos;
+  let heading;
+  let playlistUrl;
+  let description;
+
+  if (type === "children") {
+    videos = childrenVideos;
+    heading = "دورة اللغة العربية للأطفال";
+    playlistUrl =
+      "https://www.youtube.com/playlist?list=PLRHDDt-bgjQ4";
+    description =
+      "اختر أحد فيديوهات دورة اللغة العربية للأطفال.";
+  } else if (type === "calligraphy") {
+    videos = calligraphyVideos;
+    heading = "دورة تحسين الكتابة بخط النسخ";
+    playlistUrl =
+      "https://www.youtube.com/playlist?list=PLV-QBGGWhNX0";
+    description =
+      "اختر أحد دروس تحسين الكتابة بخط النسخ.";
+  } else {
+    return;
+  }
+
+  hideAllPages();
+  videoCourseSection.classList.remove("hidden");
+
+  document.getElementById("courseHeading").textContent = heading;
+  document.getElementById("courseDescription").textContent = description;
+  document.getElementById("openYoutube").href = playlistUrl;
+
+  renderVideoList(videos);
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* =====================================
+   إنشاء أزرار الفيديوهات
+===================================== */
+
+function renderVideoList(videos) {
+  const list = document.getElementById("courseLessons");
+  list.innerHTML = "";
+
+  videos.forEach(function(video, index) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "lesson-btn" + (index === 0 ? " active" : "");
+
+    const number = document.createElement("span");
+    number.className = "lesson-number";
+    number.textContent = index + 1;
+
+    const title = document.createElement("span");
+    title.textContent = video.title;
+
+    button.appendChild(number);
+    button.appendChild(title);
+
+    button.addEventListener("click", function() {
+      document.getElementById("coursePlayer").src =
+        "https://www.youtube-nocookie.com/embed/" +
+        encodeURIComponent(video.id);
+
+      document.getElementById("courseVideoTitle").textContent =
+        video.title;
+
+      list.querySelectorAll(".lesson-btn").forEach(function(item) {
+        item.classList.remove("active");
+      });
+
+      button.classList.add("active");
+
+      document.getElementById("coursePlayer").scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    });
+
+    list.appendChild(button);
+  });
+
+  // تشغيل أول فيديو تلقائيًا عند فتح الدورة.
+  if (videos.length > 0) {
+    document.getElementById("coursePlayer").src =
+      "https://www.youtube-nocookie.com/embed/" +
+      encodeURIComponent(videos[0].id);
+
+    document.getElementById("courseVideoTitle").textContent =
+      videos[0].title;
+  }
+}
+
+/* =====================================
    عداد الزوار
-========================================== */
+===================================== */
 
 let counterRequestNumber = 0;
 
@@ -770,7 +858,7 @@ function loadCounter(incrementVisit) {
 }
 
 function refreshCounter() {
-  // إعادة قراءة العدد دون طلب زيادة جديدة.
+  // يعيد قراءة العدد دون طلب زيادة جديدة.
   loadCounter(false);
 }
 </script>
