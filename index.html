@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>رواق الخط العربي / وائل دهشان</title>
+
     <style>
         :root {
             --primary: #0f4c3a;
@@ -27,60 +29,62 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* نافذة شاشة القفل وكلمة المرور */
+        /* شاشة تسجيل الدخول */
         #loginOverlay {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(10, 51, 39, 0.97), rgba(15, 76, 58, 0.98));
+            background: linear-gradient(
+                135deg,
+                rgba(10, 51, 39, 0.98),
+                rgba(15, 76, 58, 0.98)
+            );
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            backdrop-filter: blur(5px);
+            padding: 16px;
         }
 
         .login-card {
-            background: #ffffff;
-            padding: 2.2rem 2rem;
-            border-radius: 14px;
+            background: #fff;
+            padding: 32px 24px;
+            border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             text-align: center;
-            max-width: 400px;
-            width: 90%;
-            border-top: 5px solid var(--accent);
+            max-width: 440px;
+            width: 100%;
+            border-top: 6px solid var(--accent);
         }
 
         .login-card h2 {
             color: var(--primary);
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
+            font-size: clamp(26px, 5vw, 34px);
+            margin-bottom: 12px;
         }
 
         .login-card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            font-size: 18px;
+            margin-bottom: 20px;
         }
 
         .login-input {
             width: 100%;
-            padding: 0.8rem 1rem;
+            padding: 16px;
             border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 10px;
+            font-size: 20px;
             text-align: center;
+            margin-bottom: 16px;
             outline: none;
-            transition: border-color 0.2s;
-            margin-bottom: 1rem;
         }
 
         .login-input:focus {
@@ -89,15 +93,14 @@
 
         .login-btn {
             width: 100%;
-            padding: 0.8rem;
+            padding: 16px;
             background: var(--primary);
-            color: #ffffff;
+            color: #fff;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
+            border-radius: 10px;
+            font-size: 21px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
         .login-btn:hover {
@@ -105,149 +108,158 @@
         }
 
         .login-error {
-            color: #dc2626;
-            font-size: 0.85rem;
-            margin-top: 0.8rem;
+            color: #dc2626 !important;
+            font-size: 17px !important;
+            margin-top: 14px;
             display: none;
         }
 
         /* رأس الصفحة */
         header {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: #ffffff;
-            padding: 1.5rem;
+            background: linear-gradient(
+                135deg,
+                var(--primary-dark),
+                var(--primary)
+            );
+            color: #fff;
+            padding: 28px 16px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
 
         header h1 {
-            font-size: 1.9rem;
-            margin-bottom: 0.3rem;
-            color: #ffffff;
+            font-size: clamp(25px, 4vw, 38px);
+            margin-bottom: 8px;
         }
 
         header p {
-            color: var(--accent);
-            font-size: 0.95rem;
+            color: #f5d778;
+            font-size: clamp(16px, 2.5vw, 21px);
             font-weight: 600;
         }
 
-        /* الحاوية الرئيسية */
+        /* المحتوى الرئيسي */
         .container {
-            max-width: 1300px;
-            margin: 1.5rem auto;
-            padding: 0 1rem;
+            max-width: 1400px;
+            margin: 25px auto;
+            padding: 0 16px;
             display: grid;
-            grid-template-columns: 1fr 360px;
-            gap: 1.5rem;
+            grid-template-columns: minmax(0, 1fr) 370px;
+            gap: 24px;
             flex-grow: 1;
             width: 100%;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 950px) {
             .container {
                 grid-template-columns: 1fr;
             }
+
+            .sidebar {
+                max-height: 500px !important;
+            }
         }
 
-        /* بطاقة مشغل الفيديو */
+        /* بطاقة الفيديو */
         .video-box {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
             border: 1px solid var(--border);
+            min-width: 0;
         }
 
         .video-frame-wrap {
             position: relative;
-            padding-bottom: 56.25%; /* نسبة 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 10px;
             background: #111827;
-            margin-bottom: 1.2rem;
+            margin-bottom: 22px;
         }
 
         .video-frame-wrap iframe {
             position: absolute;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100%;
             border: none;
         }
 
         .lesson-info h2 {
-            font-size: 1.4rem;
+            font-size: clamp(23px, 3vw, 31px);
             color: var(--primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 12px;
+            line-height: 1.6;
         }
 
         .category-tag {
             display: inline-block;
             background: var(--accent-light);
             color: var(--primary);
-            border: 1px solid var(--accent);
-            padding: 0.2rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            border: 2px solid var(--accent);
+            padding: 7px 15px;
+            border-radius: 25px;
+            font-size: 17px;
             font-weight: bold;
-            margin-bottom: 0.8rem;
+            margin-bottom: 14px;
         }
 
         .notes-card {
             background: var(--accent-light);
-            border-right: 4px solid var(--accent);
-            padding: 1rem;
-            border-radius: 4px;
-            margin-top: 1rem;
-            font-size: 0.95rem;
+            border-right: 5px solid var(--accent);
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 18px;
+            font-size: 19px;
+            line-height: 2;
         }
 
         .notes-card strong {
             display: block;
             color: var(--primary);
-            margin-bottom: 0.3rem;
+            margin-bottom: 10px;
+            font-size: 21px;
         }
 
-        /* الشريط الجانبي وقائمة الدروس */
+        /* قائمة الدروس */
         .sidebar {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.2rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
             border: 1px solid var(--border);
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 16px;
             max-height: 80vh;
+            min-width: 0;
         }
 
         .sidebar-title {
-            font-size: 1.2rem;
+            font-size: 25px;
             color: var(--primary);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 12px;
         }
 
-        /* عناصر القائمة */
         .playlist {
             list-style: none;
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 0.6rem;
-            padding-left: 4px;
+            gap: 12px;
         }
 
         .playlist-item {
-            padding: 0.9rem;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 10px;
             border: 1px solid var(--border);
             cursor: pointer;
-            transition: all 0.2s;
             background: #fff;
+            transition: background 0.2s, border-color 0.2s;
         }
 
         .playlist-item:hover {
@@ -258,44 +270,129 @@
         .playlist-item.active {
             background: #e6f4ea;
             border-color: var(--primary);
-            border-right: 4px solid var(--primary);
-            font-weight: bold;
+            border-right: 5px solid var(--primary);
         }
 
         .playlist-item h4 {
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
+            font-size: 18px;
+            margin-bottom: 6px;
             color: var(--text-main);
+            line-height: 1.7;
         }
 
         .playlist-item small {
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 15px;
         }
 
-        /* أسفل الصفحة */
+        /* تذييل الصفحة */
         footer {
-            background: var(--card-bg);
+            background: #fff;
             border-top: 1px solid var(--border);
             text-align: center;
-            padding: 1.2rem;
-            font-size: 0.85rem;
+            padding: 28px 16px;
+            font-size: 17px;
             color: var(--text-muted);
             margin-top: auto;
         }
+
+        /* عداد الزوار */
+        .visitor-counter {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto 28px;
+            padding: 28px 18px;
+            text-align: center;
+            background: linear-gradient(
+                135deg,
+                #0a3327,
+                #0f4c3a
+            );
+            color: #fff;
+            border: 3px solid var(--accent);
+            border-radius: 18px;
+            box-shadow: 0 7px 22px rgba(0,0,0,0.2);
+        }
+
+        .counter-title {
+            font-size: clamp(24px, 4.5vw, 34px);
+            font-weight: 800;
+            color: #f5d778;
+            line-height: 1.7;
+        }
+
+        .counter-number {
+            display: block;
+            font-size: clamp(46px, 10vw, 68px);
+            font-weight: 900;
+            color: #fff;
+            direction: ltr;
+            line-height: 1.4;
+            margin: 12px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .counter-status {
+            font-size: clamp(16px, 3vw, 20px);
+            color: #f3f4f6;
+            margin-top: 8px;
+        }
+
+        .counter-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 0 12px;
+                margin: 16px auto;
+                gap: 16px;
+            }
+
+            .video-box,
+            .sidebar {
+                padding: 14px;
+            }
+
+            .notes-card {
+                font-size: 18px;
+                padding: 15px;
+            }
+
+            .visitor-counter {
+                padding: 24px 12px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
-    <!-- نافذة تسجيل الدخول بكلمة المرور -->
+    <!-- شاشة كلمة المرور -->
     <div id="loginOverlay">
         <div class="login-card">
             <h2>رواق الخط العربي</h2>
             <p>يرجى إدخال كلمة المرور للوصول إلى الدروس</p>
-            <form id="loginForm" onsubmit="handleLogin(event)">
-                <input type="password" id="passInput" class="login-input" placeholder="كلمة المرور" required autofocus>
-                <button type="submit" class="login-btn">دخول المنصة</button>
-                <p id="loginError" class="login-error">كلمة المرور غير صحيحة، يرجى المحاولة ثانية.</p>
+
+            <form id="loginForm">
+                <input
+                    type="password"
+                    id="passInput"
+                    class="login-input"
+                    placeholder="كلمة المرور"
+                    autocomplete="current-password"
+                    required
+                    autofocus
+                >
+
+                <button type="submit" class="login-btn">
+                    دخول المنصة
+                </button>
+
+                <p id="loginError" class="login-error">
+                    كلمة المرور غير صحيحة، يرجى المحاولة ثانية.
+                </p>
             </form>
         </div>
     </div>
@@ -308,15 +405,16 @@
 
     <!-- المحتوى الرئيسي -->
     <main class="container">
-        
+
         <!-- مشغل الفيديو والشرح -->
         <section class="video-box">
             <div class="video-frame-wrap">
-                <iframe 
+                <iframe
                     id="mainIframe"
-                    src="" 
-                    title="مشغل الفيديو" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    src=""
+                    title="مشغل الفيديو"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
                     allowfullscreen>
                 </iframe>
             </div>
@@ -324,7 +422,7 @@
             <div class="lesson-info">
                 <span class="category-tag" id="lessonCategory"></span>
                 <h2 id="lessonTitle"></h2>
-                
+
                 <div class="notes-card">
                     <strong>القواعد والشواهد التعليمية:</strong>
                     <p id="lessonNotes"></p>
@@ -332,69 +430,102 @@
             </div>
         </section>
 
-        <!-- القائمة الجانبية للدروس -->
+        <!-- قائمة الدروس -->
         <aside class="sidebar">
             <h2 class="sidebar-title">قائمة الدروس</h2>
-
-            <ul class="playlist" id="lessonsList">
-                <!-- يتم عرض الدروس تلقائياً عبر السكربت -->
-            </ul>
+            <ul class="playlist" id="lessonsList"></ul>
         </aside>
 
     </main>
 
-    <!-- أسفل الصفحة -->
+    <!-- تذييل الصفحة -->
     <footer>
-        &copy; جميع الحقوق محفوظة — رواق الخط العربي / وائل دهشان
+
+        <!-- عداد الزوار -->
+        <div class="visitor-counter" dir="rtl">
+            <div class="counter-icon">👥</div>
+
+            <div class="counter-title">
+                عدد زوار رواق الخط العربي
+            </div>
+
+            <span
+                class="counter-number"
+                id="visitorCount"
+                aria-live="polite">
+                ...
+            </span>
+
+            <div
+                class="counter-status"
+                id="visitorStatus"
+                aria-live="polite">
+                جارٍ تسجيل الزيارة وتحميل العدد...
+            </div>
+        </div>
+
+        <p>
+            &copy; جميع الحقوق محفوظة — رواق الخط العربي / وائل دهشان
+        </p>
+
     </footer>
 
-    <!-- سكربت التحكم والتفاعل وحماية الدخول -->
     <script>
-        // ============================================
-        // 1. كلمة المرور والتحقق من الدخول
-        // ============================================
-        const SECRET_PASS = "1234"; // يمكنك تغيير كلمة المرور هنا إلى ما تريد
+        // =========================================
+        // 1. كلمة المرور
+        // =========================================
+
+        const SECRET_PASS = "1234";
 
         function checkAccess() {
-            if (sessionStorage.getItem('rewaq_auth') === 'granted') {
-                document.getElementById('loginOverlay').style.display = 'none';
+            if (sessionStorage.getItem("rewaq_auth") === "granted") {
+                document.getElementById("loginOverlay").style.display = "none";
             }
         }
 
-        function handleLogin(e) {
-            e.preventDefault();
-            const inputVal = document.getElementById('passInput').value;
-            const errorMsg = document.getElementById('loginError');
+        document.getElementById("loginForm").addEventListener(
+            "submit",
+            function (event) {
+                event.preventDefault();
 
-            if (inputVal === SECRET_PASS) {
-                sessionStorage.setItem('rewaq_auth', 'granted');
-                document.getElementById('loginOverlay').style.display = 'none';
-            } else {
-                errorMsg.style.display = 'block';
-                document.getElementById('passInput').value = '';
-                document.getElementById('passInput').focus();
+                const inputVal =
+                    document.getElementById("passInput").value;
+
+                const errorMsg =
+                    document.getElementById("loginError");
+
+                if (inputVal === SECRET_PASS) {
+                    sessionStorage.setItem("rewaq_auth", "granted");
+                    document.getElementById("loginOverlay").style.display = "none";
+                    errorMsg.style.display = "none";
+                } else {
+                    errorMsg.style.display = "block";
+                    document.getElementById("passInput").value = "";
+                    document.getElementById("passInput").focus();
+                }
             }
-        }
+        );
 
         checkAccess();
 
-        // ============================================
+        // =========================================
         // 2. قائمة الدروس
-        // ============================================
+        // =========================================
+
         const defaultLessons = [
             {
                 id: 1,
                 title: "الدرس الأول: أقسام الكلام - الاسم وعلاماته",
                 category: "قواعد اللغة العربية",
                 url: "https://www.youtube.com/watch?v=GbqZbAgqbes",
-                notes: "الاسم كلمة تدل على إنسان، حيوان، نبات، جماد، أو معنى غير مقترن بزمن. ومن أهم علاماته: قبول دخول (الـ) التعريف، التنوين بأنواعه، وقبول حروف الجر."
+                notes: "الاسم كلمة تدل على إنسان، حيوان، نبات، جماد، أو معنى غير مقترن بزمن. ومن أهم علاماته: قبول دخول (الـ) التعريف، والتنوين بأنواعه، وقبول حروف الجر."
             },
             {
                 id: 2,
                 title: "الدرس الثاني: أقسام الكلام - الفعل وأنواعه",
                 category: "قواعد اللغة العربية",
                 url: "https://www.youtube.com/watch?v=O4XDwfm0KzU",
-                notes: "الفعل كلمة تدل على حدث مقترن بزمن محدد؛ وينقسم إلى: ماضٍ (وقع وانتهى)، ومضارع (يدل على الحال أو الاستقبال ويبدأ بأحرف نأتي)، وأمر (يفيد طلب الفعل)."
+                notes: "الفعل كلمة تدل على حدث مقترن بزمن محدد؛ وينقسم إلى: ماضٍ (وقع وانتهى)، ومضارع (يدل على الحال أو الاستقبال ويبدأ بأحرف المضارعة)، وأمر (يفيد طلب الفعل)."
             },
             {
                 id: 3,
@@ -408,21 +539,21 @@
                 title: "الدرس الرابع: الجملة الاسمية والجملة الفعلية",
                 category: "قواعد اللغة العربية",
                 url: "https://www.youtube.com/watch?v=SPSh70HtWdg",
-                notes: "الجملة الاسمية تبدأ باسم وتتكون من مبتدأ وخبر مرفوعين. والجملة الفعلية تبدأ بفعل وتتكون من فعل وفاعل، وقد تتعدى إلى مفعول به."
+                notes: "الجملة الاسمية تبدأ باسم وتتكون في أصلها من مبتدأ وخبر. والجملة الفعلية تبدأ بفعل وتتكون في أصلها من فعل وفاعل، وقد يتعدى الفعل إلى مفعول به."
             },
             {
                 id: 5,
                 title: "الدرس الخامس: المبتدأ والخبر وأنواع الخبر",
                 category: "قواعد اللغة العربية",
                 url: "https://www.youtube.com/watch?v=m1UEBVB8aRA",
-                notes: "المبتدأ اسم مرفوع نبدأ به الجملة، والخبر يتمم معناه. ويأتي الخبر: مفرداً (ليس جملة ولا شبه جملة)، أو جملة فعلية (الطالب يكتب)، أو جملة اسمية، أو شبه جملة (جار ومجرور أو ظرف)."
+                notes: "المبتدأ اسم مرفوع نبدأ به الجملة، والخبر يتمم معناه. ويأتي الخبر مفردًا، أو جملة فعلية، أو جملة اسمية، أو شبه جملة من جار ومجرور أو ظرف."
             },
             {
                 id: 6,
                 title: "الدرس السابع: أنواع الفاعل (الاسم الظاهر والضمير)",
                 category: "قواعد اللغة العربية",
                 url: "https://www.youtube.com/watch?v=Pvxl5xHKoZk",
-                notes: "الفاعل اسم مرفوع يدل على من قام بالفعل؛ ويأتي على ثلاثة أوجه: اسماً ظاهراً (حضر المعلمُ)، ضميراً متصلاً (كتبتُ الدرس)، أو ضميراً مستتراً (أكتبُ الدرس - تقديره أنا)."
+                notes: "الفاعل اسم مرفوع يدل على من قام بالفعل؛ ويأتي اسمًا ظاهرًا (حضر المعلمُ)، أو ضميرًا متصلًا (كتبتُ الدرس)، أو ضميرًا مستترًا (أكتبُ الدرس - تقديره أنا)."
             },
             {
                 id: 7,
@@ -436,58 +567,192 @@
                 title: "الدرس التاسع: كان وأخواتها وإنّ وأخواتها",
                 category: "قواعد اللغة العربية",
                 url: "https://www.youtube.com/watch?v=mdYSCYA2lXk",
-                notes: "كان وأخواتها أفعال ناسخة ترفع المبتدأ وتنصب الخبر (كان الجوُّ معتدلاً). إنّ وأخواتها حروف ناسخة تعمل عكسها؛ تنصب المبتدأ وترفع الخبر (إنّ العلمَ نورٌ)."
+                notes: "كان وأخواتها أفعال ناسخة ترفع المبتدأ وتنصب الخبر (كان الجوُّ معتدلاً). وإنّ وأخواتها حروف ناسخة تنصب المبتدأ وترفع الخبر (إنّ العلمَ نورٌ)."
             }
         ];
 
         let lessons = defaultLessons;
-        let activeId = lessons.length > 0 ? lessons[0].id : null;
+        let activeId = lessons.length ? lessons[0].id : null;
 
-        // تحويل روابط يوتيوب إلى رابط تشغيل مدمج Embed
+        // =========================================
+        // 3. تحويل رابط يوتيوب إلى رابط تشغيل
+        // =========================================
+
         function getEmbedUrl(url) {
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            if (match && match[2].length === 11) {
-                return "https://www.youtube.com/embed/" + match[2] + "?rel=0";
+            try {
+                const parsed = new URL(url);
+                let videoId = "";
+
+                if (parsed.hostname === "youtu.be") {
+                    videoId = parsed.pathname.slice(1);
+                } else if (
+                    parsed.hostname.includes("youtube.com") ||
+                    parsed.hostname.includes("youtube-nocookie.com")
+                ) {
+                    if (parsed.pathname === "/watch") {
+                        videoId = parsed.searchParams.get("v") || "";
+                    } else {
+                        const parts = parsed.pathname.split("/");
+                        videoId = parts[parts.length - 1] || "";
+                    }
+                }
+
+                if (/^[a-zA-Z0-9_-]{11}$/.test(videoId)) {
+                    return "https://www.youtube.com/embed/" +
+                        videoId + "?rel=0";
+                }
+
+                return url;
+            } catch (error) {
+                return url;
             }
-            return url;
         }
 
-        // عرض الدرس المختار
+        // =========================================
+        // 4. عرض الدرس المختار
+        // =========================================
+
         function showLesson(id) {
             activeId = id;
-            const lesson = lessons.find(item => item.id === id);
+
+            const lesson = lessons.find(function (item) {
+                return item.id === id;
+            });
+
             if (!lesson) return;
 
-            document.getElementById('lessonTitle').textContent = lesson.title;
-            document.getElementById('lessonCategory').textContent = lesson.category;
-            document.getElementById('lessonNotes').textContent = lesson.notes || "لا توجد ملاحظات إضافية لهذا الدرس.";
-            document.getElementById('mainIframe').src = getEmbedUrl(lesson.url);
+            document.getElementById("lessonTitle").textContent =
+                lesson.title;
+
+            document.getElementById("lessonCategory").textContent =
+                lesson.category;
+
+            document.getElementById("lessonNotes").textContent =
+                lesson.notes || "لا توجد ملاحظات إضافية لهذا الدرس.";
+
+            document.getElementById("mainIframe").src =
+                getEmbedUrl(lesson.url);
 
             renderPlaylist();
         }
 
-        // بناء قائمة الدروس في الشريط الجانبي
-        function renderPlaylist() {
-            const listElement = document.getElementById('lessonsList');
-            listElement.innerHTML = '';
+        // =========================================
+        // 5. بناء قائمة الدروس
+        // =========================================
 
-            lessons.forEach(lesson => {
-                const li = document.createElement('li');
-                li.className = 'playlist-item ' + (lesson.id === activeId ? 'active' : '');
-                li.innerHTML = `
-                    <h4>${lesson.title}</h4>
-                    <small>التصنيف: ${lesson.category}</small>
-                `;
-                li.onclick = () => showLesson(lesson.id);
+        function renderPlaylist() {
+            const listElement = document.getElementById("lessonsList");
+            listElement.innerHTML = "";
+
+            lessons.forEach(function (lesson) {
+                const li = document.createElement("li");
+                li.className =
+                    "playlist-item " +
+                    (lesson.id === activeId ? "active" : "");
+
+                const title = document.createElement("h4");
+                title.textContent = lesson.title;
+
+                const category = document.createElement("small");
+                category.textContent = "التصنيف: " + lesson.category;
+
+                li.appendChild(title);
+                li.appendChild(category);
+
+                li.tabIndex = 0;
+                li.setAttribute("role", "button");
+
+                li.addEventListener("click", function () {
+                    showLesson(lesson.id);
+                });
+
+                li.addEventListener("keydown", function (event) {
+                    if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        showLesson(lesson.id);
+                    }
+                });
+
                 listElement.appendChild(li);
             });
         }
 
-        // بدء التشغيل التلقائي عند فتح الصفحة
         if (activeId !== null) {
             showLesson(activeId);
         }
+
+        // =========================================
+        // 6. عداد الزوار التلقائي
+        // يعتمد على CounterAPI.com
+        // =========================================
+
+        const visitorCountElement =
+            document.getElementById("visitorCount");
+
+        const visitorStatusElement =
+            document.getElementById("visitorStatus");
+
+        /*
+          جميع الزيارات تستخدم الاسم نفسه.
+          لذلك يمكن مشاركة العدد بين صفحات الموقع.
+          يُرسل طلب العداد تلقائيًا عند تحميل الصفحة.
+        */
+
+        window.counterCallback = function (response) {
+            if (
+                response &&
+                response.value !== undefined &&
+                Number.isFinite(Number(response.value))
+            ) {
+                visitorCountElement.textContent =
+                    Number(response.value).toLocaleString("en-US");
+
+                visitorStatusElement.textContent =
+                    "إجمالي الزيارات المسجلة تلقائيًا";
+
+            } else {
+                visitorCountElement.textContent = "—";
+
+                visitorStatusElement.textContent =
+                    "لم يصل رقم الزيارات. يرجى تحديث الصفحة.";
+            }
+        };
+
+        function loadVisitorCounter() {
+            visitorStatusElement.textContent =
+                "جارٍ تسجيل الزيارة وتحميل العدد...";
+
+            /*
+              نستخدم JSONP بدل fetch لتجنب مشكلة CORS.
+              الخدمة تسجل الزيارة وتستدعي counterCallback
+              بالعدد الجديد عند نجاح الطلب.
+            */
+
+            const script = document.createElement("script");
+
+            script.src =
+                "https://counterapi.com/api/" +
+                "riwaq-al-khatt-wael-dahshan/" +
+                "view/website-visits?callback=counterCallback";
+
+            script.async = true;
+
+            script.onerror = function () {
+                visitorCountElement.textContent = "—";
+
+                visitorStatusElement.textContent =
+                    "تعذر الاتصال بخدمة العداد. تحقق من الإنترنت.";
+
+                console.error("تعذر تحميل خدمة عداد الزوار.");
+            };
+
+            document.body.appendChild(script);
+        }
+
+        // تنفيذ مرة واحدة عند فتح الصفحة
+        loadVisitorCounter();
+
     </script>
+
 </body>
 </html>
